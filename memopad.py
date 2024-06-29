@@ -27,7 +27,6 @@ keyboard.add_hotkey("Ctrl+N", new_tab)
 def new_window():    
     file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
     if file_path:
-        print(f"Selected file: " + file_path)
         try:
             with open(file_path, "r", encoding="utf8") as file:
                 txt.delete("1.0", END)
@@ -39,7 +38,6 @@ keyboard.add_hotkey("Ctrl+Shift+N", new_window)
 def open_file():
     file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
     if file_path:
-        print(f"Selected file: " + file_path)
         try:
             with open(file_path, "r", encoding="utf8") as file:
                 txt.delete("1.0", END)
@@ -121,22 +119,18 @@ keyboard.add_hotkey("Ctrl+Z", undo)
 
 def cut():
     pyautogui.hotkey('ctrl', 'x')
-    print("cut key pressed")
 #keyboard.add_hotkey("Ctrl+X", cut)
 
 def copy():
     pyautogui.hotkey('ctrl', 'c')
-    print("copy key pressed")
 #keyboard.add_hotkey("Ctrl+C", copy)
 
 def paste():
     pyautogui.hotkey('ctrl', 'v')
-    print("paste key pressed")
 #keyboard.add_hotkey("Ctrl+V", paste)
 
 def delete():
     pyautogui.hotkey('delete')
-    print("delete key pressed")
 #keyboard.add_hotkey("Delete", delete)
 
 def find():
@@ -171,16 +165,27 @@ def font():
     print("font function pressed")
 
 ##view
+font_index = 1
+font_size = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 32, 36, 40, 44, 48]
+
 def zoom_in():
-    print("zoom in pressed")
+    global font_index
+    if font_index < len(font_size) -1:
+        font_index += 1
+        txt.config(font=("Arial", font_size[font_index]))
 keyboard.add_hotkey("Ctrl+plus", zoom_in)
 
 def zoom_out():
-    print("zoom out pressed")
-keyboard.add_hotkey("-", zoom_out)
+    global font_index
+    if font_index > 0:
+        font_index -= 1
+        txt.config(font=("Arial", font_size[font_index]))
+keyboard.add_hotkey("Ctrl+-", zoom_out)
 
 def zoom_restore():
-    print("zoom restore pressed")
+    global font_index
+    font_index = 2
+    txt.config(font=("Arial", font_size[font_index]))
 keyboard.add_hotkey("Ctrl+w", zoom_restore)
 
 def status_bar():
