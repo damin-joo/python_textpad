@@ -119,22 +119,31 @@ keyboard.add_hotkey("Ctrl+Z", undo)
 
 def cut():
     pyautogui.hotkey('ctrl', 'x')
-#keyboard.add_hotkey("Ctrl+X", cut)
 
 def copy():
     pyautogui.hotkey('ctrl', 'c')
-#keyboard.add_hotkey("Ctrl+C", copy)
 
 def paste():
     pyautogui.hotkey('ctrl', 'v')
-#keyboard.add_hotkey("Ctrl+V", paste)
 
 def delete():
     pyautogui.hotkey('delete')
-#keyboard.add_hotkey("Delete", delete)
 
+finds = []
 def find():
-    print("find key pressed")
+    all_text =txt.get("1.0", "end")
+    line_number = 1
+    found = False
+    search = "hello"
+    # for line in all_text:
+    #     if search in line:
+    #        finds.insert(END, f"Line {line_number}: {line}")
+    #         found = True
+    #     line_number += 1
+    
+    # if found == 0:
+    #     finds.insert(END, "No matching lines found.")
+
 keyboard.add_hotkey("Ctrl+F", find)
 
 def find_next():
@@ -198,7 +207,8 @@ keyboard.add_hotkey("Ctrl+F", find)
 
 def update_title(event):
     update_filename = txt.get("1.0", "1.30")
-    root.title(update_filename)
+    if (root.title != "Untitled") & (update_filename != ''):         #first line is not null
+        root.title(update_filename + "*")
 keyboard.hook(update_title)
 
 style = ttk.Style()
