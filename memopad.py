@@ -1,4 +1,5 @@
 import os
+import re
 import keyboard
 import pyautogui
 import tkinter.ttk as ttk
@@ -129,21 +130,20 @@ def paste():
 def delete():
     pyautogui.hotkey('delete')
 
+def search(m):
+    if m:
+        print("m.span()", m.span())        #returns index of (start, end) of the word
+    else:
+        print("No results found")
+
 finds = []
 def find():
-    all_text =txt.get("1.0", "end")
-    line_number = 1
-    found = False
-    search = "hello"
-    # for line in all_text:
-    #     if search in line:
-    #        finds.insert(END, f"Line {line_number}: {line}")
-    #         found = True
-    #     line_number += 1
-    
-    # if found == 0:
-    #     finds.insert(END, "No matching lines found.")
-
+    all_text = txt.get("1.0", END)   
+    p = re.compile(search)
+    search = "help"
+    finds = p.search(all_text)
+    print("original text: " + all_text)
+    print("found text: " + finds)
 keyboard.add_hotkey("Ctrl+F", find)
 
 def find_next():
